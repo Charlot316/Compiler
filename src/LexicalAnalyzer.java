@@ -16,10 +16,10 @@ public class  LexicalAnalyzer {
             default -> "Ident(" + word + ")";
         };
     }
-    public static ArrayList<Token> LexicalAnalyze() {
+    public ArrayList<Token> LexicalAnalyze() {
         Scanner input = new Scanner(System.in);
         StringBuilder word = new StringBuilder();
-        ArrayList<Token> TokenList=new ArrayList<>();
+        ArrayList<Token> tokenList=new ArrayList<>();
         char[] nextLine;
         while (input.hasNextLine()) {
             nextLine = input.nextLine().trim().toCharArray();
@@ -28,8 +28,8 @@ public class  LexicalAnalyzer {
                 if(!comment){
                     if(nextLine[index]=='/'){
                         ++index;
-                        if(nextLine[index]=='/') break;
-                        else if(nextLine[index]=='*')comment=true;
+                        if(index<nextLine.length&&nextLine[index]=='/') break;
+                        else if(index<nextLine.length&&nextLine[index]=='*')comment=true;
                         else index--;
                     }
                     else if (Character.isLetter(nextLine[index]) || nextLine[index] == '_') {
@@ -40,7 +40,7 @@ public class  LexicalAnalyzer {
                             ++index;
                         }
                         --index;
-                        TokenList.add(new Token(Reserve(word.toString()),word.toString()));
+                        tokenList.add(new Token(Reserve(word.toString()),word.toString()));
                         word = new StringBuilder();
                     }
                     else if(Character.isDigit(nextLine[index])){
@@ -62,7 +62,7 @@ public class  LexicalAnalyzer {
                                 }
                                 if(word.length()<=2) System.exit(-1);
                                 --index;
-                                TokenList.add(new Token("Number",Integer.toString(Integer.parseInt(word.toString(),16))));
+                                tokenList.add(new Token("Number",Integer.toString(Integer.parseInt(word.toString(),16))));
                             }
                             else{
                                 while ((index<nextLine.length)
@@ -73,7 +73,7 @@ public class  LexicalAnalyzer {
                                     ++index;
                                 }
                                 --index;
-                                TokenList.add(new Token("Number",Integer.toString(Integer.parseInt(word.toString(),8))));
+                                tokenList.add(new Token("Number",Integer.toString(Integer.parseInt(word.toString(),8))));
                             }
                         }
                         else{
@@ -82,7 +82,7 @@ public class  LexicalAnalyzer {
                                 ++index;
                             }
                             --index;
-                            TokenList.add(new Token("Number",word.toString()));
+                            tokenList.add(new Token("Number",word.toString()));
                             word = new StringBuilder();
                         }
 
@@ -92,22 +92,22 @@ public class  LexicalAnalyzer {
                             case '=' -> {
                                 ++index;
                                 if ((index < nextLine.length) && (nextLine[index] == '=')) {
-                                    TokenList.add(new Token("Eq", "=="));
+                                    tokenList.add(new Token("Eq", "=="));
                                 } else {
                                     --index;
-                                    TokenList.add(new Token("Assign", "="));
+                                    tokenList.add(new Token("Assign", "="));
                                 }
                             }
-                            case ';' -> TokenList.add(new Token("Semicolon", ";"));
-                            case '(' -> TokenList.add(new Token("LPar", "("));
-                            case ')' -> TokenList.add(new Token("RPar", ")"));
-                            case '{' -> TokenList.add(new Token("LBrace", "{"));
-                            case '}' -> TokenList.add(new Token("RBrace", "}"));
-                            case '+' -> TokenList.add(new Token("Plus", "+"));
-                            case '*' -> TokenList.add(new Token("Mult", "*"));
-                            case '/' -> TokenList.add(new Token("Div", "/"));
-                            case '<' -> TokenList.add(new Token("Lt", "<"));
-                            case '>' -> TokenList.add(new Token("Gt", ">"));
+                            case ';' -> tokenList.add(new Token("Semicolon", ";"));
+                            case '(' -> tokenList.add(new Token("LPar", "("));
+                            case ')' -> tokenList.add(new Token("RPar", ")"));
+                            case '{' -> tokenList.add(new Token("LBrace", "{"));
+                            case '}' -> tokenList.add(new Token("RBrace", "}"));
+                            case '+' -> tokenList.add(new Token("Plus", "+"));
+                            case '*' -> tokenList.add(new Token("Mult", "*"));
+                            case '/' -> tokenList.add(new Token("Div", "/"));
+                            case '<' -> tokenList.add(new Token("Lt", "<"));
+                            case '>' -> tokenList.add(new Token("Gt", ">"));
                             default ->  System.exit(-1);
                         }
                         word = new StringBuilder();
@@ -116,12 +116,12 @@ public class  LexicalAnalyzer {
                 else{
                     if(nextLine[index]=='*'){
                         ++index;
-                        if(nextLine[index]=='/') comment=false;
+                        if(index<nextLine.length&&nextLine[index]=='/') comment=false;
                         else break;
                     }
                 }
             }
         }
-        return TokenList;
+        return tokenList;
     }
 }
