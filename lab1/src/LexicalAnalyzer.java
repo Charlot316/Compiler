@@ -65,7 +65,7 @@ public class  LexicalAnalyzer {
                                 }
                                 if(word.length()<=2) System.exit(-1);
                                 --index;
-                                tokenList.add(new Token("Number",Integer.toString(Integer.parseInt(word.toString(),16))));
+                                tokenList.add(new Token("Number",Integer.toString(Integer.parseInt(word.toString()))));
                             }
                             else{
                                 while ((index<nextLine.length)
