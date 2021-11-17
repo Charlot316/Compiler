@@ -1,4 +1,4 @@
 FROM openjdk:14
-COPY . /myapp/
+COPY ./lab1/ /myapp/
 WORKDIR /myapp/
 RUN javac -cp src/ src/Compiler.java -d dst/
