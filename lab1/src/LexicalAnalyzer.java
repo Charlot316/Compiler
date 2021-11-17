@@ -23,7 +23,6 @@ public class  LexicalAnalyzer {
         char[] nextLine;
         while (input.hasNextLine()) {
             nextLine = input.nextLine().trim().toCharArray();
-            System.out.println(nextLine);
             boolean comment=false;
             for (int index = 0; index < nextLine.length; index++) {
                 if(!comment){
@@ -109,7 +108,12 @@ public class  LexicalAnalyzer {
                             case '/' -> tokenList.add(new Token("Div", "/"));
                             case '<' -> tokenList.add(new Token("Lt", "<"));
                             case '>' -> tokenList.add(new Token("Gt", ">"));
-                            default ->  System.exit(-1);
+                            default ->
+                                    {
+                                        if (!(nextLine[index] == ' ' || nextLine[index] == '\n' || nextLine[index] == '\t' || nextLine[index] == '\r')) {
+                                            System.exit(-1);
+                                        }
+                                    }
                         }
                         word = new StringBuilder();
                     }
