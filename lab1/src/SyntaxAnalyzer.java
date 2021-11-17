@@ -84,7 +84,7 @@ public class SyntaxAnalyzer {
 
     public void getSym(){
         if(this.getIndex()+1<this.getTokenList().size()) {
-            System.out.println(this.getCurrentToken()); this.setIndex(this.getIndex()+1);}
+            this.setIndex(this.getIndex()+1);}
     }
 
     public void error(){
