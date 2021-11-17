@@ -23,6 +23,7 @@ public class  LexicalAnalyzer {
         char[] nextLine;
         while (input.hasNextLine()) {
             nextLine = input.nextLine().trim().toCharArray();
+            System.out.println(nextLine);
             boolean comment=false;
             for (int index = 0; index < nextLine.length; index++) {
                 if(!comment){
