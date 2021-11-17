@@ -49,7 +49,7 @@ public class  LexicalAnalyzer {
                         if(nextLine[index]=='0'){
                             word.append(nextLine[index]);
                             ++index;
-                            if(nextLine[index]=='x'){
+                            if(index<nextLine.length&&nextLine[index]=='x'){
                                 word.append(nextLine[index]);
                                 ++index;
                                 while ((index<nextLine.length)
