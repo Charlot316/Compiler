@@ -27,7 +27,6 @@ public class  LexicalAnalyzer {
         while (input.hasNextLine()) {
             nextLine = input.nextLine().trim().toCharArray();
             for (int index = 0; index < nextLine.length; index++) {
-                if(tokenList.size()>0)System.out.println(tokenList.get(tokenList.size()-1));
                 if(!comment){
                     if(nextLine[index]=='/'){
                         ++index;
@@ -65,7 +64,7 @@ public class  LexicalAnalyzer {
                                 }
                                 if(word.length()<=2) System.exit(-1);
                                 --index;
-                                tokenList.add(new Token("Number",Integer.toString(Integer.parseInt(word.toString()))));
+                                tokenList.add(new Token("Number",Integer.toString(Integer.parseInt(word.substring(2),16))));
                             }
                             else{
                                 while ((index<nextLine.length)

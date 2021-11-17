@@ -76,7 +76,6 @@ public class SyntaxAnalyzer {
         compareToken("Return");
         getSym();
         compareToken("Number");
-        getSym();
         returnValue=Integer.parseInt(this.getCurrentValue());
         getSym();
         compareToken("Semicolon");
