@@ -34,72 +34,61 @@ public class SyntaxAnalyzer {
     public String getCurrentValue(){
         return this.getTokenList().get(this.getIndex()).getValue();
     }
-    
+
+    public void compareToken(String type){
+        if(this.outOfBound()||!this.getCurrentType().equals(type)){
+            error();
+        }
+    }
     public void CompUnit(){
         FuncDef();
     }
 
     public void FuncDef(){
         FuncType();
-        getSym();
         Ident();
+        compareToken("LPar");
         getSym();
-        if(this.outOfBound()||!this.getCurrentType().equals("LPar")){
-            error();
-        }
-        getSym();
-        if(this.outOfBound()||!this.getCurrentType().equals("RPar")){
-            error();
-        }
+        compareToken("RPar");
         getSym();
         Block();
     }
 
     public void FuncType(){
-        if(this.outOfBound()||!this.getCurrentType().equals("Int")){
-            error();
-        }
+        compareToken("Int");
+        getSym();
     }
 
     public void Ident(){
-        if(this.outOfBound()||!this.getCurrentType().equals("Main")){
-            error();
-        }
+        compareToken("Main");
+        getSym();
     }
 
     public void Block(){
-        if(this.outOfBound()||!this.getCurrentType().equals("LBrace")){
-            error();
-        }
+        compareToken("LBrace");
         getSym();
         Stmt();
+        compareToken("RBrace");
         getSym();
-        if(this.outOfBound()||!this.getCurrentType().equals("RBrace")){
-            error();
-        }
     }
 
     public void Stmt(){
-        if(this.outOfBound()||!this.getCurrentType().equals("Return")){
-            error();
-        }
+        compareToken("Return");
         getSym();
-        if(this.outOfBound()||!this.getCurrentType().equals("Number")){
-            error();
-        }
+        compareToken("Number");
+        getSym();
         returnValue=Integer.parseInt(this.getCurrentValue());
         getSym();
-        if(this.outOfBound()||!this.getCurrentType().equals("Semicolon")){
-            error();
-        }
+        compareToken("Semicolon");
+        getSym();
     }
 
     public void getSym(){
-        this.setIndex(this.getIndex()+1);
+        if(this.getIndex()+1<this.getTokenList().size()) this.setIndex(this.getIndex()+1);
     }
 
     public void error(){
-        System.exit(1);
+        System.exit(-1);
     }
 
     public void outPrint(){
